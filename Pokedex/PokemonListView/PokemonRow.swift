@@ -12,9 +12,13 @@ struct PokemonRow: View {
     var imageURL: URL?
     
     var body: some View {
-        HStack {
+        HStack(alignment: .center, spacing: 24) {
             AsyncImage(url: imageURL)
-            Text(name)
+                .frame(width: 75, height: 75)
+                .clipShape(Circle())
+                .foregroundColor(.gray.opacity(0.6))
+            Text(name.capitalized)
+                .font(.headline)
         }
     }
 }
