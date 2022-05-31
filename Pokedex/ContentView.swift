@@ -8,20 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var pokemons: [PokeAPIService.Response.Pokemon] = []
+    @State var pokemons: [PokeAPIService.GetPokemons.Response.Pokemon] = []
     
     var body: some View {
         List(pokemons, id: \.name) { pokemon in
             PokemonRow(name: pokemon.name, imageURL: PokeAPIService.shared.getPokemonImageURL(id: pokemon.id))
         }.onAppear {
-            PokeAPIService.shared.getPokemons { response in
+            PokeAPIService.GetPokemons.fetch { response in
                 pokemons = response.results
             }
         }
     }
 }
 
-extension PokeAPIService.Response.Pokemon {
+extension PokeAPIService.GetPokemons.Response.Pokemon {
     var id: String {
         URL(string: url)?.lastPathComponent ?? ""
     }
