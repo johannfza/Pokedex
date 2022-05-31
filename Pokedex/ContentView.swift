@@ -12,7 +12,7 @@ struct ContentView: View {
     
     var body: some View {
         List(pokemons, id: \.name) { pokemon in
-            PokemonRow(name: pokemon.name, imageURL: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png")
+            PokemonRow(name: pokemon.name, imageURL: PokeAPIService.shared.getPokemonImageURL(id: pokemon.id))
         }.onAppear {
             PokeAPIService.shared.getPokemons { response in
                 pokemons = response.results
@@ -20,6 +20,13 @@ struct ContentView: View {
         }
     }
 }
+
+extension PokeAPIService.Response.Pokemon {
+    var id: String {
+        URL(string: url)?.lastPathComponent ?? ""
+    }
+}
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
