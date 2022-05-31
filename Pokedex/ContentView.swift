@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var pokemons: [PokeAPIService.Response.Pokemon] = []
+    
     var body: some View {
-        List {
-            PokemonRow(name: "Charmander", imageURL: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png")
+        List(pokemons, id: \.name) { pokemon in
+            PokemonRow(name: pokemon.name, imageURL: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png")
         }.onAppear {
             PokeAPIService.shared.getPokemons { response in
-                response.results.forEach { pokemon in
-                    print(pokemon)
-                }
+                pokemons = response.results
             }
         }
     }
