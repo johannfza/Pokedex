@@ -11,6 +11,12 @@ struct ContentView: View {
     var body: some View {
         List {
             PokemonRow(name: "Charmander", imageURL: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png")
+        }.onAppear {
+            PokeAPIService.shared.getPokemons { response in
+                response.results.forEach { pokemon in
+                    print(pokemon)
+                }
+            }
         }
     }
 }
