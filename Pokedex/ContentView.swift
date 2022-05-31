@@ -8,15 +8,25 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var searchText = ""
     @State var pokemons: [PokeAPIService.GetPokemons.Response.Pokemon] = []
     
+    var filterePokemon: [PokeAPIService.GetPokemons.Response.Pokemon] {
+        guard !searchText.isEmpty else { return pokemons }
+        return pokemons.filter { $0.name.contains(searchText.lowercased()) }
+    }
+    
     var body: some View {
-        List(pokemons, id: \.name) { pokemon in
-            PokemonRow(name: pokemon.name, imageURL: PokeAPIService.shared.getPokemonImageURL(id: pokemon.id))
-        }.onAppear {
-            PokeAPIService.GetPokemons.fetch { response in
-                pokemons = response.results
+        NavigationView {
+            List(filterePokemon, id: \.name) { pokemon in
+                PokemonRow(name: pokemon.name, imageURL: PokeAPIService.shared.getPokemonImageURL(id: pokemon.id))
+            }.onAppear {
+                PokeAPIService.GetPokemons.fetch { response in
+                    pokemons = response.results
+                }
             }
+            .searchable(text: $searchText)
+            .navigationTitle("Pokedex")
         }
     }
 }
