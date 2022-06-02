@@ -18,8 +18,10 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            List(filterePokemon, id: \.name) { pokemon in
-                PokemonRow(name: pokemon.name, imageURL:PokeAPIService.GetPokemonSpriteURL.by(id: pokemon.id))
+            List(filterePokemon, id: \.id) { pokemon in
+                NavigationLink(destination: PokemonDetailsView(id: pokemon.id)) {
+                    PokemonRow(name: pokemon.name, imageURL:PokeAPIService.GetPokemonSpriteURL.by(id: pokemon.id))
+                }
             }.onAppear {
                 PokeAPIService.GetPokemons.fetch { response in
                     pokemons = response.results
@@ -32,8 +34,8 @@ struct ContentView: View {
 }
 
 extension GetPokemonsResponse.Pokemon {
-    var id: String {
-        URL(string: url)?.lastPathComponent ?? ""
+    var id: Int {
+        Int(URL(string: url)?.lastPathComponent ?? "") ?? 0
     }
 }
 
