@@ -15,14 +15,7 @@ struct PokemonDetailsView: View {
         VStack {
             if let model = model {
                 VStack(alignment: .center, spacing: 24) {
-                    AsyncImage(url: model.imageURL) { image in
-                        image.resizable()
-                    } placeholder: {
-                        ProgressView()
-                    }
-                    .frame(width: 200, height: 200)
-                    Text(model.name.capitalized)
-                        .font(.headline)
+                    PokemonQRCodeImageView(url: model.imageURL, qrCodeData: "pokemonID:\(model.id)")
                     HStack(alignment: .center, spacing: 24) {
                         HStack {
                             Text("Height:")
@@ -45,6 +38,7 @@ struct PokemonDetailsView: View {
                             ForEach(model.stats, id: \.name) { stat in
                                 HStack {
                                     Text(stat.name.capitalized)
+                                    Spacer()
                                     Text(String(stat.value))
                                 }
                             }
@@ -57,6 +51,7 @@ struct PokemonDetailsView: View {
                 model = .init(model: response)
             }
         }
+        .navigationTitle(Text(model?.name.capitalized ?? ""))
     }
     
     struct PokemonDetailsDisplayModel {

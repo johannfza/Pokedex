@@ -8,14 +8,14 @@
 import Foundation
 import UIKit
 
-let qrCodebaseURL = "https://api.qrserver.com/v1/create-qr-code/?size=240x240&data="
+let qrCodebaseURL = "https://api.qrserver.com/v1/create-qr-code/?ecc=H&size=280x280&data="
 
 class QRCodeAPIService {
     class GetQRCode: APIRequest {
         typealias Response = Data
         static var url: String =  qrCodebaseURL
         static func fetch(for data: String, completion: @escaping (UIImage) -> Void) {
-            guard let url = URL(string: url + data) else { return }
+            guard let url = URL(string: url + data) else { return } 
             GetQRCode.dataTask(with: url) { data in
                 guard let image = UIImage(data: data) else {
                     print("Unable to parse into image")

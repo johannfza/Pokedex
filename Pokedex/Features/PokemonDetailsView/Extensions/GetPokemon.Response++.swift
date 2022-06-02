@@ -39,7 +39,7 @@ extension PokemonDetailsView.PokemonDetailsDisplayModel {
                     let value = $0.baseStat
                 else { return nil }
                 return .init(name: name, value: value)
-            } ?? []
+            }
         )
     }
 }

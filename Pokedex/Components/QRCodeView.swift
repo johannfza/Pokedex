@@ -9,14 +9,12 @@ import SwiftUI
 
 struct QRCodeView: View {
     let data: String
-    let opacity: Double = 0.0
     @State var uiImage: UIImage?
     
     var body: some View {
-        ZStack {
+        VStack {
             if let uiImage = uiImage {
                 Image(uiImage: uiImage)
-                    .opacity(opacity)
             }
         }.onAppear {
             QRCodeAPIService.GetQRCode.fetch(for: data) { uiImage in
