@@ -16,7 +16,9 @@ extension PokemonDetailsView.PokemonDetailsDisplayModel {
             height: model.height,
             weight: model.weight,
             abilities: model.abilities.map { $0.ability.name },
-            imageURL: PokeAPIService.GetPokemonSpriteURL.by(id: model.id),
+            imageURL: URL(
+                string: model.sprites.other?.officialArtwork.frontDefault ?? ""
+            ) ?? PokeAPIService.GetPokemonSpriteURL.by(id: model.id),
             stats: model.stats.map { .init(name: $0.stat.name, value: $0.baseStat) }
         )
     }

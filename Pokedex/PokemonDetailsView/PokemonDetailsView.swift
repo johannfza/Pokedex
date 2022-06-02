@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct PokemonDetailsView: View {
+    var id: Int
     @State var model: PokemonDetailsDisplayModel?
     
     var body: some View {
@@ -52,7 +53,9 @@ struct PokemonDetailsView: View {
                 }
             }
         }.onAppear {
-            // call api
+            PokeAPIService.GetPokemon.fetch(by: id) { response in
+                model = .init(model: response)
+            }
         }
     }
     
@@ -95,6 +98,6 @@ struct PokemonDetailView_Previews: PreviewProvider {
     )
     
     static var previews: some View {
-        PokemonDetailsView(model: mockModel)
+        PokemonDetailsView(id: 4)
     }
 }

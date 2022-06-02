@@ -33,7 +33,7 @@ class PokeAPIService {
     
     enum Endpoint: String {
         case getPokemons = "/pokemon/?offset=0&limit=151"
-        case getPokemon = "pokemon/"
+        case getPokemon = "/pokemon/"
     }
     
     class GetPokemons: APIRequest {
@@ -49,6 +49,7 @@ class PokeAPIService {
         static var url: URL =  URL(string: PokeAPIService.baseURL + Endpoint.getPokemon.rawValue)!
         static func fetch(by id: Int, completion: @escaping (GetPokemonResponse) -> Void) {
             url.appendPathComponent(String(id))
+            print(url)
             GetPokemon.dataTask(with: url, completion: completion)
         }
     }
