@@ -11,49 +11,53 @@ struct PokemonDetailsView: View {
     @State var model: PokemonDetailsDisplayModel?
     
     var body: some View {
-        if let model = model {
-            VStack(alignment: .center, spacing: 24) {
-                AsyncImage(url: model.imageURL) { image in
-                    image.resizable()
-                } placeholder: {
-                    ProgressView()
-                }
-                .frame(width: 200, height: 200)
-                Text(model.name.capitalized)
-                    .font(.headline)
-                HStack(alignment: .center, spacing: 24) {
-                    HStack {
-                        Text("Height:")
-                        Text(String(model.height))
+        VStack {
+            if let model = model {
+                VStack(alignment: .center, spacing: 24) {
+                    AsyncImage(url: model.imageURL) { image in
+                        image.resizable()
+                    } placeholder: {
+                        ProgressView()
                     }
-                    HStack {
-                        Text("Weight:")
-                        Text(String(model.weight))
-                    }
-                }
-                Text(model.description)
-                    .multilineTextAlignment(.center)
-                List {
-                    Section(header: Text("Abilities")) {
-                        ForEach(model.abilities, id: \.self) { ability in
-                            Text(ability.capitalized)
+                    .frame(width: 200, height: 200)
+                    Text(model.name.capitalized)
+                        .font(.headline)
+                    HStack(alignment: .center, spacing: 24) {
+                        HStack {
+                            Text("Height:")
+                            Text(String(model.height))
+                        }
+                        HStack {
+                            Text("Weight:")
+                            Text(String(model.weight))
                         }
                     }
-                    Section(header: Text("Stats")) {
-                        ForEach(model.stats, id: \.name) { stat in
-                            HStack {
-                                Text(stat.name.capitalized)
-                                Text(String(stat.value))
+                    Text(model.description)
+                        .multilineTextAlignment(.center)
+                    List {
+                        Section(header: Text("Abilities")) {
+                            ForEach(model.abilities, id: \.self) { ability in
+                                Text(ability.capitalized)
+                            }
+                        }
+                        Section(header: Text("Stats")) {
+                            ForEach(model.stats, id: \.name) { stat in
+                                HStack {
+                                    Text(stat.name.capitalized)
+                                    Text(String(stat.value))
+                                }
                             }
                         }
                     }
                 }
             }
+        }.onAppear {
+            // call api
         }
     }
     
     struct PokemonDetailsDisplayModel {
-        var id: String
+        var id: Int
         var name: String
         var description: String
         var height: Int
@@ -71,7 +75,7 @@ struct PokemonDetailsView: View {
 
 struct PokemonDetailView_Previews: PreviewProvider {
     static var mockModel: PokemonDetailsView.PokemonDetailsDisplayModel = .init(
-        id: "4",
+        id: 4,
         name: "charmander",
         description: "The flame that burns at the tip of its\ntail is an indication of its emotions.\nThe flame wavers when CHARMANDER is\nenjoying itself. If the POKéMON becomes\nenraged, the flame burns fiercely.",
         height: 6,

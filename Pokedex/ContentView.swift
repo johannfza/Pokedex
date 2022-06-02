@@ -9,9 +9,9 @@ import SwiftUI
 
 struct ContentView: View {
     @State var searchText = ""
-    @State var pokemons: [PokeAPIService.GetPokemons.Response.Pokemon] = []
+    @State var pokemons: [GetPokemonsResponse.Pokemon] = []
     
-    var filterePokemon: [PokeAPIService.GetPokemons.Response.Pokemon] {
+    var filterePokemon: [GetPokemonsResponse.Pokemon] {
         guard !searchText.isEmpty else { return pokemons }
         return pokemons.filter { $0.name.contains(searchText.lowercased()) }
     }
@@ -19,7 +19,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List(filterePokemon, id: \.name) { pokemon in
-                PokemonRow(name: pokemon.name, imageURL: PokeAPIService.shared.getPokemonImageURL(id: pokemon.id))
+                PokemonRow(name: pokemon.name, imageURL:PokeAPIService.GetPokemonSpriteURL.by(id: pokemon.id))
             }.onAppear {
                 PokeAPIService.GetPokemons.fetch { response in
                     pokemons = response.results
@@ -31,7 +31,7 @@ struct ContentView: View {
     }
 }
 
-extension PokeAPIService.GetPokemons.Response.Pokemon {
+extension GetPokemonsResponse.Pokemon {
     var id: String {
         URL(string: url)?.lastPathComponent ?? ""
     }

@@ -7,59 +7,59 @@
 
 import Foundation
 
+protocol APIRequest {
+    associatedtype Response: Decodable
+    static var url: URL { get }
+    static func dataTask(with url: URL, completion: @escaping (Response) -> Void)
+}
+
+extension APIRequest {
+    static func dataTask(with url: URL, completion: @escaping (Response) -> Void) {
+        URLSession.shared.dataTask(with: url) { data, _, _ in
+            guard let data = data else { return }
+            do {
+                let response = try JSONDecoder().decode(Response.self, from: data)
+                completion(response)
+            } catch {
+                return
+            }
+        }.resume()
+    }
+}
+
 class PokeAPIService {
     static var shared = PokeAPIService()
+    static let baseURL = "https://pokeapi.co/api/v2"
     
-    struct GetPokemons {
+    enum Endpoint: String {
+        case getPokemons = "/pokemon/?offset=0&limit=151"
+        case getPokemon = "pokemon/"
+    }
+    
+    class GetPokemons: APIRequest {
+        typealias Response = GetPokemonsResponse
+        static var url: URL =  URL(string: PokeAPIService.baseURL + Endpoint.getPokemons.rawValue)!
         static func fetch(completion: @escaping (Response) -> Void) {
-            guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151") else {
-                return
-            }
-
-            URLSession.shared.dataTask(with: url) { data, _, _ in
-                guard let data = data else { return }
-                do {
-                    let response = try JSONDecoder().decode(Response.self, from: data)
-                    completion(response)
-                } catch {
-                    return
-                }
-            }.resume()
+            GetPokemons.dataTask(with: url, completion: completion)
+        }
+    }
+    
+    class GetPokemon: APIRequest {
+        typealias Response = GetPokemonResponse
+        static var url: URL =  URL(string: PokeAPIService.baseURL + Endpoint.getPokemon.rawValue)!
+        static func fetch(by id: Int, completion: @escaping (GetPokemonResponse) -> Void) {
+            url.appendPathComponent(String(id))
+            GetPokemon.dataTask(with: url, completion: completion)
+        }
+    }
+    
+    class GetPokemonSpriteURL {
+        static func by(id: Int) -> URL? {
+            GetPokemonSpriteURL.by(id: String(id))
         }
         
-        struct Response: Codable {
-            var results: [Pokemon]
-            
-            struct Pokemon: Codable {
-                var name: String
-                var url: String
-            }
+        static func by(id: String) -> URL? {
+            URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(id).png")
         }
-    }
-    
-    struct GetPokemon {
-        static func fetch(by id: Int, completion: @escaping (GetPokemonResponse) -> Void) {
-            guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/\(id)/") else {
-                return
-            }
-
-            URLSession.shared.dataTask(with: url) { data, _, _ in
-                guard let data = data else { return }
-                do {
-                    let response = try JSONDecoder().decode(GetPokemonResponse.self, from: data)
-                    completion(response)
-                } catch {
-                    return
-                }
-            }.resume()
-        }
-    }
-    
-    func getPokemonImageURL(id: Int) -> URL? {
-        getPokemonImageURL(id: String(id))
-    }
-    
-    func getPokemonImageURL(id: String) -> URL? {
-        URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(id).png")
     }
 }
