@@ -33,7 +33,7 @@ extension PokemonDetailsView.PokemonDetailsDisplayModel {
             imageURL: URL(
                 string: model.sprites?.other?.officialArtwork?.frontDefault ?? ""
             ) ?? PokeAPIService.GetPokemonSpriteURL.by(id: id),
-            stats: model.stats?.compactMap {
+            stats: stats.compactMap {
                 guard
                     let name = $0.stat?.name,
                     let value = $0.baseStat

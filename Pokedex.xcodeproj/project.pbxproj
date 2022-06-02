@@ -11,6 +11,9 @@
 		E23CEAB22848F42100296C34 /* GetPokemon.Response++.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23CEAB12848F42100296C34 /* GetPokemon.Response++.swift */; };
 		E23CEAB42849126700296C34 /* GetPokemonsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23CEAB32849126700296C34 /* GetPokemonsResponse.swift */; };
 		E23CEAB628491BD200296C34 /* PokemonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23CEAB528491BD200296C34 /* PokemonListView.swift */; };
+		E23CEABA28491DCE00296C34 /* QRCodeAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23CEAB928491DCE00296C34 /* QRCodeAPIService.swift */; };
+		E23CEABE28491E1300296C34 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23CEABD28491E1300296C34 /* APIRequest.swift */; };
+		E23CEAC42849219F00296C34 /* QRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23CEAC32849219F00296C34 /* QRCodeView.swift */; };
 		E26656272846696800F2C23A /* PokedexApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26656262846696800F2C23A /* PokedexApp.swift */; };
 		E26656292846696800F2C23A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26656282846696800F2C23A /* ContentView.swift */; };
 		E266562B2846696900F2C23A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E266562A2846696900F2C23A /* Assets.xcassets */; };
@@ -45,6 +48,9 @@
 		E23CEAB12848F42100296C34 /* GetPokemon.Response++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GetPokemon.Response++.swift"; sourceTree = "<group>"; };
 		E23CEAB32849126700296C34 /* GetPokemonsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPokemonsResponse.swift; sourceTree = "<group>"; };
 		E23CEAB528491BD200296C34 /* PokemonListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListView.swift; sourceTree = "<group>"; };
+		E23CEAB928491DCE00296C34 /* QRCodeAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeAPIService.swift; sourceTree = "<group>"; };
+		E23CEABD28491E1300296C34 /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
+		E23CEAC32849219F00296C34 /* QRCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeView.swift; sourceTree = "<group>"; };
 		E26656232846696800F2C23A /* Pokedex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokedex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E26656262846696800F2C23A /* PokedexApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokedexApp.swift; sourceTree = "<group>"; };
 		E26656282846696800F2C23A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -102,6 +108,58 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		E23CEAB728491DAF00296C34 /* QRCodeService */ = {
+			isa = PBXGroup;
+			children = (
+				E23CEAB928491DCE00296C34 /* QRCodeAPIService.swift */,
+			);
+			path = QRCodeService;
+			sourceTree = "<group>";
+		};
+		E23CEAB828491DBA00296C34 /* PokeAPIService */ = {
+			isa = PBXGroup;
+			children = (
+				E23CEAAD2848F37300296C34 /* Models */,
+				E26656582846735B00F2C23A /* PokeAPIService.swift */,
+			);
+			path = PokeAPIService;
+			sourceTree = "<group>";
+		};
+		E23CEABB28491DF400296C34 /* APIServices */ = {
+			isa = PBXGroup;
+			children = (
+				E23CEABC28491E0100296C34 /* Utilities */,
+				E23CEAB828491DBA00296C34 /* PokeAPIService */,
+				E23CEAB728491DAF00296C34 /* QRCodeService */,
+			);
+			path = APIServices;
+			sourceTree = "<group>";
+		};
+		E23CEABC28491E0100296C34 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				E23CEABD28491E1300296C34 /* APIRequest.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		E23CEABF2849217200296C34 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				E266565028466CF200F2C23A /* PokemonListView */,
+				E266565D284682BE00F2C23A /* PokemonDetailsView */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		E23CEAC02849217B00296C34 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				E23CEAC32849219F00296C34 /* QRCodeView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		E266561A2846696800F2C23A = {
 			isa = PBXGroup;
 			children = (
@@ -125,9 +183,9 @@
 		E26656252846696800F2C23A /* Pokedex */ = {
 			isa = PBXGroup;
 			children = (
-				E266565D284682BE00F2C23A /* PokemonDetailsView */,
+				E23CEAC02849217B00296C34 /* Components */,
+				E23CEABF2849217200296C34 /* Features */,
 				E26656572846730900F2C23A /* Services */,
-				E266565028466CF200F2C23A /* PokemonListView */,
 				E26656262846696800F2C23A /* PokedexApp.swift */,
 				E26656282846696800F2C23A /* ContentView.swift */,
 				E266562A2846696900F2C23A /* Assets.xcassets */,
@@ -173,8 +231,7 @@
 		E26656572846730900F2C23A /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				E23CEAAD2848F37300296C34 /* Models */,
-				E26656582846735B00F2C23A /* PokeAPIService.swift */,
+				E23CEABB28491DF400296C34 /* APIServices */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -318,10 +375,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E23CEAC42849219F00296C34 /* QRCodeView.swift in Sources */,
+				E23CEABE28491E1300296C34 /* APIRequest.swift in Sources */,
 				E26656292846696800F2C23A /* ContentView.swift in Sources */,
 				E23CEAB42849126700296C34 /* GetPokemonsResponse.swift in Sources */,
 				E266565F284682D300F2C23A /* PokemonDetailsView.swift in Sources */,
 				E23CEAAF2848F3A900296C34 /* GetPokemonResponse.swift in Sources */,
+				E23CEABA28491DCE00296C34 /* QRCodeAPIService.swift in Sources */,
 				E26656592846735B00F2C23A /* PokeAPIService.swift in Sources */,
 				E26656272846696800F2C23A /* PokedexApp.swift in Sources */,
 				E266565628466D5E00F2C23A /* PokemonRow.swift in Sources */,
