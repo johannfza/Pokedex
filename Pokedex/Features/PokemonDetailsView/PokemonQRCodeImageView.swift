@@ -23,13 +23,13 @@ struct PokemonQRCodeImageView: View {
             QRCodeView(data: qrCodeData)
                 .opacity(shouldShowQR ? 0.7 : 0.0)
             Image(systemName: "qrcode")
-                .font(.system(size: 20))
+                .font(.system(size: 24))
                 .offset(x: 120, y: 120)
+                .onTapGesture {
+                    shouldShowQR.toggle()
+                }
         }
         .frame(width: 280, height: 280)
-        .onTapGesture {
-            shouldShowQR.toggle()
-        }
     }
 }
 
