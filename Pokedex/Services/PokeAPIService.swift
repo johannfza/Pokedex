@@ -37,6 +37,28 @@ class PokeAPIService {
         }
     }
     
+    struct GetPokemon {
+        static func fetch(by id: Int, completion: @escaping (GetPokemonResponse) -> Void) {
+            guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/\(id)/") else {
+                return
+            }
+
+            URLSession.shared.dataTask(with: url) { data, _, _ in
+                guard let data = data else { return }
+                do {
+                    let response = try JSONDecoder().decode(GetPokemonResponse.self, from: data)
+                    completion(response)
+                } catch {
+                    return
+                }
+            }.resume()
+        }
+    }
+    
+    func getPokemonImageURL(id: Int) -> URL? {
+        getPokemonImageURL(id: String(id))
+    }
+    
     func getPokemonImageURL(id: String) -> URL? {
         URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(id).png")
     }
