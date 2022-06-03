@@ -11,13 +11,13 @@ struct PokemonListView: View {
     @State var searchText = ""
     @State var pokemons: [GetPokemonsResponse.Pokemon] = []
     
-    var filterePokemon: [GetPokemonsResponse.Pokemon] {
+    var filteredPokemons: [GetPokemonsResponse.Pokemon] {
         guard !searchText.isEmpty else { return pokemons }
         return pokemons.filter { $0.name.contains(searchText.lowercased()) }
     }
     
     var body: some View {
-        List(filterePokemon, id: \.id) { pokemon in
+        List(filteredPokemons, id: \.id) { pokemon in
             NavigationLink(destination: PokemonDetailsView(id: pokemon.id)) {
                 PokemonRow(name: pokemon.name, imageURL:PokeAPIService.GetPokemonSpriteURL.by(id: pokemon.id))
             }
