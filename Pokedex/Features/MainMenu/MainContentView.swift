@@ -16,7 +16,7 @@ struct MainContentView: View {
                     Text("Pokedex")
                 }
             
-            Text("My Pokemon")
+            MyPokemonsView()
                 .tabItem {
                     Image(systemName: "bag")
                     Text("MyPokemon")
@@ -26,7 +26,11 @@ struct MainContentView: View {
 }
 
 extension GetPokemonsResponse.Pokemon {
-    var id: Int {
+    var id: String {
+        String(pokemonID)
+    }
+    
+    var pokemonID: Int {
         Int(URL(string: url)?.lastPathComponent ?? "") ?? 0
     }
 }

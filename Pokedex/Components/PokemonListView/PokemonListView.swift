@@ -25,8 +25,10 @@ struct PokemonListView: View {
     var body: some View {
         NavigationView {
             List(filteredPokemons, id: \.id) { pokemon in
-                NavigationLink(destination: PokemonDetailsView(id: pokemon.id)) {
-                    PokemonRow(name: pokemon.name, imageURL:PokeAPIService.GetPokemonSpriteURL.by(id: pokemon.id))
+                NavigationLink(
+                    destination: PokemonDetailsView(id: pokemon.pokemonID)
+                ) {
+                    PokemonRow(name: pokemon.name, imageURL:PokeAPIService.GetPokemonSpriteURL.by(id: pokemon.pokemonID))
                 }
             }
             .onAppear {
@@ -40,7 +42,8 @@ struct PokemonListView: View {
     }
     
     struct Pokemon {
-        var id: Int
+        var id: String
+        var pokemonID: Int
         var name: String
     }
 }
@@ -49,7 +52,7 @@ class MockPokemonListViewDataSource: PokemonListViewDataSource {
     func getPokemons(completion: @escaping ([PokemonListView.Pokemon]) -> Void) {
         PokeAPIService.GetPokemons.fetch { response in
             let pokemons: [PokemonListView.Pokemon] = response.results.map {
-                .init(id: $0.id, name: $0.name)
+                .init(id: $0.id, pokemonID: $0.pokemonID, name: $0.name)
             }
             completion(pokemons)
         }

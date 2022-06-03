@@ -11,7 +11,7 @@ class PokedexViewDataSource: PokemonListViewDataSource {
     func getPokemons(completion: @escaping ([PokemonListView.Pokemon]) -> Void) {
         PokeAPIService.GetPokemons.fetch { response in
             let pokemons: [PokemonListView.Pokemon] = response.results.map {
-                .init(id: $0.id, name: $0.name)
+                .init(id: $0.id, pokemonID: $0.pokemonID, name: $0.name)
             }
             completion(pokemons)
         }
