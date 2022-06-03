@@ -9,20 +9,18 @@ import SwiftUI
 
 struct MainContentView: View {
     var body: some View {
-        NavigationView {
-            TabView {
-                PokemonListView()
-                    .tabItem {
-                        Image(systemName: "text.book.closed")
-                        Text("Pokedex")
-                    }
-                
-                Text("My Pokemon")
-                    .tabItem {
-                        Image(systemName: "bag")
-                        Text("MyPokemon")
-                    }
-            }
+        TabView {
+            PokedexView()
+                .tabItem {
+                    Image(systemName: "text.book.closed")
+                    Text("Pokedex")
+                }
+            
+            Text("My Pokemon")
+                .tabItem {
+                    Image(systemName: "bag")
+                    Text("MyPokemon")
+                }
         }
     }
 }
