@@ -16,7 +16,7 @@
 		E23CEAC42849219F00296C34 /* QRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23CEAC32849219F00296C34 /* QRCodeView.swift */; };
 		E23CEAC6284923B100296C34 /* PokemonQRCodeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23CEAC5284923B100296C34 /* PokemonQRCodeImageView.swift */; };
 		E26656272846696800F2C23A /* PokedexApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26656262846696800F2C23A /* PokedexApp.swift */; };
-		E26656292846696800F2C23A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26656282846696800F2C23A /* ContentView.swift */; };
+		E26656292846696800F2C23A /* MainContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26656282846696800F2C23A /* MainContentView.swift */; };
 		E266562B2846696900F2C23A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E266562A2846696900F2C23A /* Assets.xcassets */; };
 		E266562E2846696900F2C23A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E266562D2846696900F2C23A /* Preview Assets.xcassets */; };
 		E26656382846696900F2C23A /* PokedexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26656372846696900F2C23A /* PokedexTests.swift */; };
@@ -55,7 +55,7 @@
 		E23CEAC5284923B100296C34 /* PokemonQRCodeImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonQRCodeImageView.swift; sourceTree = "<group>"; };
 		E26656232846696800F2C23A /* Pokedex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokedex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E26656262846696800F2C23A /* PokedexApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokedexApp.swift; sourceTree = "<group>"; };
-		E26656282846696800F2C23A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		E26656282846696800F2C23A /* MainContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContentView.swift; sourceTree = "<group>"; };
 		E266562A2846696900F2C23A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E266562D2846696900F2C23A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E26656332846696900F2C23A /* PokedexTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PokedexTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -148,6 +148,7 @@
 		E23CEABF2849217200296C34 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				E2ED13622849C9BA00B20F9E /* MainMenu */,
 				E266565028466CF200F2C23A /* PokemonListView */,
 				E266565D284682BE00F2C23A /* PokemonDetailsView */,
 			);
@@ -189,7 +190,6 @@
 				E23CEABF2849217200296C34 /* Features */,
 				E26656572846730900F2C23A /* Services */,
 				E26656262846696800F2C23A /* PokedexApp.swift */,
-				E26656282846696800F2C23A /* ContentView.swift */,
 				E266562A2846696900F2C23A /* Assets.xcassets */,
 				E266562C2846696900F2C23A /* Preview Content */,
 			);
@@ -246,6 +246,14 @@
 				E23CEAC5284923B100296C34 /* PokemonQRCodeImageView.swift */,
 			);
 			path = PokemonDetailsView;
+			sourceTree = "<group>";
+		};
+		E2ED13622849C9BA00B20F9E /* MainMenu */ = {
+			isa = PBXGroup;
+			children = (
+				E26656282846696800F2C23A /* MainContentView.swift */,
+			);
+			path = MainMenu;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -380,7 +388,7 @@
 			files = (
 				E23CEAC42849219F00296C34 /* QRCodeView.swift in Sources */,
 				E23CEABE28491E1300296C34 /* APIRequest.swift in Sources */,
-				E26656292846696800F2C23A /* ContentView.swift in Sources */,
+				E26656292846696800F2C23A /* MainContentView.swift in Sources */,
 				E23CEAB42849126700296C34 /* GetPokemonsResponse.swift in Sources */,
 				E266565F284682D300F2C23A /* PokemonDetailsView.swift in Sources */,
 				E23CEAC6284923B100296C34 /* PokemonQRCodeImageView.swift in Sources */,
