@@ -31,6 +31,8 @@
 		E2ED136E2849EB0000B20F9E /* MyPokemonsViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2ED136D2849EB0000B20F9E /* MyPokemonsViewDataSource.swift */; };
 		E2ED13712849EF3400B20F9E /* MainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2ED13702849EF3400B20F9E /* MainStore.swift */; };
 		E2ED13732849F09B00B20F9E /* StorableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2ED13722849F09B00B20F9E /* StorableObject.swift */; };
+		E2ED13772849F49F00B20F9E /* CatchPokemonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2ED13762849F49F00B20F9E /* CatchPokemonView.swift */; };
+		E2ED137A2849F50B00B20F9E /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = E2ED13792849F50B00B20F9E /* CodeScanner */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +80,7 @@
 		E2ED136D2849EB0000B20F9E /* MyPokemonsViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPokemonsViewDataSource.swift; sourceTree = "<group>"; };
 		E2ED13702849EF3400B20F9E /* MainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStore.swift; sourceTree = "<group>"; };
 		E2ED13722849F09B00B20F9E /* StorableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorableObject.swift; sourceTree = "<group>"; };
+		E2ED13762849F49F00B20F9E /* CatchPokemonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchPokemonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2ED137A2849F50B00B20F9E /* CodeScanner in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,10 +164,10 @@
 		E23CEABF2849217200296C34 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				E2ED13742849F47A00B20F9E /* CatchPokemon */,
 				E2ED136A2849EA9E00B20F9E /* MyPokemons */,
 				E2ED13622849C9BA00B20F9E /* MainMenu */,
 				E266565028466CF200F2C23A /* Pokedex */,
-				E266565D284682BE00F2C23A /* PokemonDetailsView */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -171,6 +175,7 @@
 		E23CEAC02849217B00296C34 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				E266565D284682BE00F2C23A /* PokemonDetailsView */,
 				E2ED13692849DA3F00B20F9E /* PokemonListView */,
 				E23CEAC32849219F00296C34 /* QRCodeView.swift */,
 			);
@@ -298,6 +303,14 @@
 			path = Storage;
 			sourceTree = "<group>";
 		};
+		E2ED13742849F47A00B20F9E /* CatchPokemon */ = {
+			isa = PBXGroup;
+			children = (
+				E2ED13762849F49F00B20F9E /* CatchPokemonView.swift */,
+			);
+			path = CatchPokemon;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -314,6 +327,9 @@
 			dependencies = (
 			);
 			name = Pokedex;
+			packageProductDependencies = (
+				E2ED13792849F50B00B20F9E /* CodeScanner */,
+			);
 			productName = Pokedex;
 			productReference = E26656232846696800F2C23A /* Pokedex.app */;
 			productType = "com.apple.product-type.application";
@@ -386,6 +402,9 @@
 				Base,
 			);
 			mainGroup = E266561A2846696800F2C23A;
+			packageReferences = (
+				E2ED13782849F50B00B20F9E /* XCRemoteSwiftPackageReference "CodeScanner" */,
+			);
 			productRefGroup = E26656242846696800F2C23A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -428,6 +447,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2ED13772849F49F00B20F9E /* CatchPokemonView.swift in Sources */,
 				E2ED136C2849EAD000B20F9E /* MyPokemonsView.swift in Sources */,
 				E23CEAC42849219F00296C34 /* QRCodeView.swift in Sources */,
 				E23CEABE28491E1300296C34 /* APIRequest.swift in Sources */,
@@ -793,6 +813,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E2ED13782849F50B00B20F9E /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/CodeScanner";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E2ED13792849F50B00B20F9E /* CodeScanner */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E2ED13782849F50B00B20F9E /* XCRemoteSwiftPackageReference "CodeScanner" */;
+			productName = CodeScanner;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E266561B2846696800F2C23A /* Project object */;
 }

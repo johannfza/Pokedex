@@ -21,6 +21,12 @@ struct MainContentView: View {
                     Image(systemName: "bag")
                     Text("MyPokemon")
                 }
+            
+            CatchPokemonView()
+                .tabItem {
+                    Image(systemName: "circle.circle")
+                    Text("Catch em all")
+                }
         }
     }
 }

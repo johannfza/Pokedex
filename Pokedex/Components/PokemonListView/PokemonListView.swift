@@ -37,8 +37,8 @@ struct PokemonListView: View {
                 }
             }
             .navigationTitle(navigationTitle)
+            .searchable(text: $searchText)
         }
-        .searchable(text: $searchText)
     }
     
     struct Pokemon {
