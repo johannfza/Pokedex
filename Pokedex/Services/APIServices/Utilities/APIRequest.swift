@@ -14,17 +14,6 @@ protocol APIRequest {
 }
 
 extension APIRequest {
-    static func dataTask(with url: URL, completion: @escaping (Response) -> Void) {
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            guard let data = data else { return }
-            do {
-                let response = try JSONDecoder().decode(Response.self, from: data)
-                completion(response)
-            } catch let decodingError {
-                print(decodingError.localizedDescription)
-                return
-            }
-        }.resume()
-    }
+
 }
 

@@ -14,7 +14,7 @@ struct PokemonQRCodeImageView: View {
     
     var body: some View {
         ZStack {
-            AsyncImage(url: PokeAPIService.GetPokemonOfficalArtworkURL.by(id: String(pokemonID))) { image in
+            AsyncImage(url: PokeAPIService.shared.getPokemonOfficalArtworkURLby(id: String(pokemonID))) { image in
                 image.resizable()
             } placeholder: {
                 ProgressView()

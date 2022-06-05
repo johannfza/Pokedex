@@ -7,49 +7,56 @@
 
 import Foundation
 
-let pokeAPIbaseURL = "https://pokeapi.co/api/v2"
-
-class PokeAPIService {    
+class PokeAPIService {
+    let baseURL: String
+    
+    static let shared = PokeAPIService(baseURL: "https://pokeapi.co/api/v2")
+    
+    init(baseURL: String) {
+        self.baseURL = baseURL
+    }
+    
     enum Endpoint: String {
         case getPokemons = "/pokemon/?offset=0&limit=151"
         case getPokemon = "/pokemon/"
     }
     
-    class GetPokemons: APIRequest {
-        typealias Response = GetPokemonsResponse
-        static var url: String =  pokeAPIbaseURL + Endpoint.getPokemons.rawValue
-        static func fetch(completion: @escaping (Response) -> Void) {
-            guard let url = URL(string: url) else { return }
-            GetPokemons.dataTask(with: url, completion: completion)
-        }
+    func getPokemons(completion: @escaping (GetPokemonsResponse) -> Void) {
+        guard let url = URL(string: baseURL + Endpoint.getPokemons.rawValue) else { return }
+        dataTask(with: url, completion: completion)
     }
     
-    class GetPokemon: APIRequest {
-        typealias Response = GetPokemonResponse
-        static var url: String = pokeAPIbaseURL + Endpoint.getPokemon.rawValue
-        static func fetch(by id: Int, completion: @escaping (GetPokemonResponse) -> Void) {
-            guard let url = URL(string: url + String(id)) else { return }
-            GetPokemon.dataTask(with: url, completion: completion)
-        }
+    func getPokemon(by id: Int, completion: @escaping (GetPokemonResponse) -> Void) {
+        guard let url = URL(string: baseURL + Endpoint.getPokemon.rawValue + String(id)) else { return }
+        dataTask(with: url, completion: completion)
     }
     
-    class GetPokemonSpriteURL {
-        static func by(id: Int) -> URL? {
-            GetPokemonSpriteURL.by(id: String(id))
-        }
-        
-        static func by(id: String) -> URL? {
-            URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(id).png")
-        }
+    func dataTask<T: Codable>(with url: URL, completion: @escaping (T) -> Void) {
+        URLSession.shared.dataTask(with: url) { data, _, error in
+            guard let data = data else { return }
+            do {
+                let response = try JSONDecoder().decode(T.self, from: data)
+                completion(response)
+            } catch let decodingError {
+                print(decodingError.localizedDescription)
+                return
+            }
+        }.resume()
     }
     
-    class GetPokemonOfficalArtworkURL {
-        static func by(id: Int) -> URL? {
-            GetPokemonSpriteURL.by(id: String(id))
-        }
-        
-        static func by(id: String) -> URL? {
-            URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(id).png")
-        }
+    func getPokemonSpriteURLby(id: Int) -> URL? {
+        getPokemonSpriteURLby(id: String(id))
+    }
+    
+    func getPokemonSpriteURLby(id: String) -> URL? {
+        URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(id).png")
+    }
+    
+    func getPokemonOfficalArtworkURLby(id: Int) -> URL? {
+        getPokemonOfficalArtworkURLby(id: String(id))
+    }
+    
+    func getPokemonOfficalArtworkURLby(id: String) -> URL? {
+        URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(id).png")
     }
 }

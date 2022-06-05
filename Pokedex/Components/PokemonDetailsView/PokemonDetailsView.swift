@@ -52,7 +52,7 @@ struct PokemonDetailsView: View {
                 }
             }
         }.onAppear {
-            PokeAPIService.GetPokemon.fetch(by: id) { response in
+            PokeAPIService.shared.getPokemon(by: id) { response in
                 model = .init(model: response)
             }
         }

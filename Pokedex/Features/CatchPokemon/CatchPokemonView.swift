@@ -48,7 +48,7 @@ struct CatchPokemonView: View {
             isAlertPresented = true
         } else {
             let randomPokemonID = Int.random(in: 1...151)
-            PokeAPIService.GetPokemon.fetch(by: randomPokemonID) { pokemon in
+            PokeAPIService.shared.getPokemon(by: randomPokemonID) { pokemon in
                 guard let pokemonName = pokemon.name else { return }
                 save(pokemonID: randomPokemonID, name: pokemonName)
             }

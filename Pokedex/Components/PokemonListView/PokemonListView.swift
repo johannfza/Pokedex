@@ -28,7 +28,7 @@ struct PokemonListView: View {
                 NavigationLink(
                     destination: PokemonDetailsView(id: pokemon.pokemonID, qrCodeData: pokemon.qrCodeData)
                 ) {
-                    PokemonRow(name: pokemon.name, imageURL:PokeAPIService.GetPokemonSpriteURL.by(id: pokemon.pokemonID))
+                    PokemonRow(name: pokemon.name, imageURL: PokeAPIService.shared.getPokemonSpriteURLby(id: pokemon.pokemonID))
                 }
             }
             .onAppear {
@@ -52,7 +52,7 @@ struct PokemonListView: View {
 
 class MockPokemonListViewDataSource: PokemonListViewDataSource {
     func getPokemons(completion: @escaping ([PokemonListView.Pokemon]) -> Void) {
-        PokeAPIService.GetPokemons.fetch { response in
+        PokeAPIService.shared.getPokemons { response in
             let pokemons: [PokemonListView.Pokemon] = response.results.map {
                 .init(id: $0.id, pokemonID: $0.pokemonID, name: $0.name)
             }
