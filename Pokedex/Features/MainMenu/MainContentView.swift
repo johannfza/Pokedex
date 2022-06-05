@@ -13,19 +13,19 @@ struct MainContentView: View {
             PokedexView()
                 .tabItem {
                     Image(systemName: "text.book.closed")
-                    Text("Pokedex")
+                    Text("Pokédex")
                 }
             
             MyPokemonsView()
                 .tabItem {
                     Image(systemName: "bag")
-                    Text("MyPokemon")
+                    Text("My Pokémon")
                 }
             
             CatchPokemonView()
                 .tabItem {
                     Image(systemName: "circle.circle")
-                    Text("Catch em all")
+                    Text("Catch 'Em All")
                 }
         }
     }
