@@ -10,48 +10,74 @@ import CodeScanner
 
 struct CatchPokemonView: View {
     @State var isAlertPresented = false
+    @State var state: ViewState = .scanning
+    
+    enum ViewState {
+        case scanning
+        case saving
+        case saved
+    }
     
     var body: some View {
-        CodeScannerView(codeTypes: [.qr]) { response in
+        CodeScannerView(codeTypes: [.qr], scanMode: .oncePerCode, shouldVibrateOnSuccess: true) { response in
             switch response {
             case .success(let result):
-                guard
-                    let pokemonDetails = getPokemonDetails(from: result.string),
-                    let pokemonID = Int(pokemonDetails.pokemonID)
-                else {
-                    return
-                }
-                let caughtPokemon = StorableObject.MyPokemon(
-                    id: UUID().uuidString,
-                    pokemonID: pokemonID,
-                    name: pokemonDetails.name
-                )
-                save(pokemon: caughtPokemon)
-                isAlertPresented = true
+                guard state == .scanning else { break }
+                state = .saving
+                handle(result: result.string)
+                state = .saved
             case .failure(let error):
                 print(error.localizedDescription)
             }
-        }.alert("You caught a pokemon!", isPresented: $isAlertPresented) {
-            Button("Got it!") { }
+        }.alert("You caught a Pokemon!", isPresented: $isAlertPresented) {
+            Button("Got it!") {
+                state = .scanning
+            }
+        }
+        .overlay {
+            if state == .saving {
+                ProgressView()
+            }
+        }
+    }
+    
+    func handle(result: String) {
+        if let pokemonDetails = getPokemonDetails(from: result),
+           let pokemonID = Int(pokemonDetails.pokemonID) {
+            save(pokemonID: pokemonID, name: pokemonDetails.name)
+            isAlertPresented = true
+        } else {
+            let randomPokemonID = Int.random(in: 1...151)
+            PokeAPIService.GetPokemon.fetch(by: randomPokemonID) { pokemon in
+                guard let pokemonName = pokemon.name else { return }
+                save(pokemonID: randomPokemonID, name: pokemonName)
+            }
+            isAlertPresented = true
         }
     }
     
     func getPokemonDetails(from payload: String) -> (name: String, pokemonID: String)? {
-        guard let nameRegex = try? NSRegularExpression(pattern: "[^name:][a-zA-Z]*"),
-              let idRegex = try? NSRegularExpression(pattern: "[^pokemonId:]*[0-9]")
+        let range = NSRange(location: 0, length: payload.utf16.count)
+        guard
+            let nameRegex = try? NSRegularExpression(pattern: "[^name:][a-zA-Z]*"),
+            let idRegex = try? NSRegularExpression(pattern: "[^pokemonId:]*[0-9]"),
+            let nameRange = nameRegex.firstMatch(in: payload, options: [], range: range)?.range,
+            let pokemonIDRange = idRegex.firstMatch(in: payload, options: [], range: range)?.range
         else {
             return nil
         }
-        let range = NSRange(location: 0, length: payload.utf16.count)
-        let nameRange = nameRegex.firstMatch(in: payload, options: [], range: range)
         let nsString = payload as NSString
-        let name = nsString.substring(with: nameRange!.range)
-        let pokemonIDRange = idRegex.firstMatch(in: payload, options: [], range: range)
-        let pokemonID = nsString.substring(with: pokemonIDRange!.range)
+        let name = nsString.substring(with: nameRange)
+        let pokemonID = nsString.substring(with: pokemonIDRange)
         return (name, pokemonID)
     }
     
-    func save(pokemon: StorableObject.MyPokemon) {
+    func save(pokemonID: Int, name: String) {
+        let pokemon = StorableObject.MyPokemon(
+            id: UUID().uuidString,
+            pokemonID: pokemonID,
+            name: name
+        )
         guard var pokemonCollection: [StorableObject.MyPokemon] = MainStore.shared.retrieve(key: .myPokemons) else {
             MainStore.shared.save(value: [pokemon], for: .myPokemons)
             return

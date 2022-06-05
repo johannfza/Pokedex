@@ -38,6 +38,7 @@ struct PokemonListView: View {
             }
             .navigationTitle(navigationTitle)
             .searchable(text: $searchText)
+            .disableAutocorrection(true)
         }
     }
     
