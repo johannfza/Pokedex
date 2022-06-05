@@ -26,7 +26,7 @@ struct PokemonListView: View {
         NavigationView {
             List(filteredPokemons, id: \.id) { pokemon in
                 NavigationLink(
-                    destination: PokemonDetailsView(id: pokemon.pokemonID)
+                    destination: PokemonDetailsView(id: pokemon.pokemonID, qrCodeData: pokemon.qrCodeData)
                 ) {
                     PokemonRow(name: pokemon.name, imageURL:PokeAPIService.GetPokemonSpriteURL.by(id: pokemon.pokemonID))
                 }
@@ -46,6 +46,7 @@ struct PokemonListView: View {
         var id: String
         var pokemonID: Int
         var name: String
+        var qrCodeData: String?
     }
 }
 

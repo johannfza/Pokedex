@@ -14,7 +14,7 @@ class MyPokemonsViewDataSource: PokemonListViewDataSource {
             return
         }
         let pokemons: [PokemonListView.Pokemon] = storedPokemons.map {
-            .init(id: $0.id, pokemonID: $0.pokemonID, name: $0.name)
+            .init(id: $0.id, pokemonID: $0.pokemonID, name: $0.name, qrCodeData: "name:\($0.name),pokemonID:\($0.id)")
         }
         completion(pokemons)
     }

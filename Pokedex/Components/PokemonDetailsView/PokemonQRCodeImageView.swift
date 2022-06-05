@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct PokemonQRCodeImageView: View {
-    let url: URL?
+    let pokemonID: Int
     let qrCodeData: String
     @State var shouldShowQR: Bool = false
     
     var body: some View {
         ZStack {
-            AsyncImage(url: url) { image in
+            AsyncImage(url: PokeAPIService.GetPokemonOfficalArtworkURL.by(id: String(pokemonID))) { image in
                 image.resizable()
             } placeholder: {
                 ProgressView()
@@ -38,7 +38,7 @@ struct PokemonQRCodeImageView: View {
 struct PokemonQRCodeImageView_Previews: PreviewProvider {
     static var previews: some View {
         PokemonQRCodeImageView(
-            url: URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png"),
+            pokemonID: 4,
             qrCodeData: "test"
         )
     }

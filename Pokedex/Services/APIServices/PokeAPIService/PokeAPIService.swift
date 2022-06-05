@@ -42,4 +42,14 @@ class PokeAPIService {
             URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(id).png")
         }
     }
+    
+    class GetPokemonOfficalArtworkURL {
+        static func by(id: Int) -> URL? {
+            GetPokemonSpriteURL.by(id: String(id))
+        }
+        
+        static func by(id: String) -> URL? {
+            URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(id).png")
+        }
+    }
 }

@@ -9,16 +9,18 @@ import SwiftUI
 
 struct PokemonDetailsView: View {
     var id: Int
+    var qrCodeData: String?
     @State var model: PokemonDetailsDisplayModel?
     
     var body: some View {
         VStack {
             if let model = model {
                 VStack(alignment: .center, spacing: 24) {
-                    PokemonQRCodeImageView(
-                        url: model.imageURL,
-                        qrCodeData: "name:\(model.name),pokemonID:\(model.id)"
-                    )
+                    if let data = qrCodeData {
+                        PokemonQRCodeImageView(pokemonID: model.id, qrCodeData: data)
+                    } else {
+                        PokemonImageView(pokemonID: model.id)
+                    }
                     HStack(alignment: .center, spacing: 24) {
                         HStack {
                             Text("Height:")
@@ -64,7 +66,6 @@ struct PokemonDetailsView: View {
         var height: Int
         var weight: Int
         var abilities: [String]
-        var imageURL: URL?
         var stats: [Stat]
         
         struct Stat {
@@ -84,7 +85,6 @@ struct PokemonDetailView_Previews: PreviewProvider {
         abilities: [
             "blaze", "solar-power"
         ],
-        imageURL: URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png"),
         stats: [
             .init(name: "hp", value: 39),
             .init(name: "attack", value: 52),
@@ -96,6 +96,6 @@ struct PokemonDetailView_Previews: PreviewProvider {
     )
     
     static var previews: some View {
-        PokemonDetailsView(id: 4)
+        PokemonDetailsView(id: 4, qrCodeData: "123")
     }
 }

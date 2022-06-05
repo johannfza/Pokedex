@@ -30,9 +30,6 @@ extension PokemonDetailsView.PokemonDetailsDisplayModel {
                 guard let name = $0.ability?.name else { return nil }
                 return name
             },
-            imageURL: URL(
-                string: model.sprites?.other?.officialArtwork?.frontDefault ?? ""
-            ) ?? PokeAPIService.GetPokemonSpriteURL.by(id: id),
             stats: stats.compactMap {
                 guard
                     let name = $0.stat?.name,
